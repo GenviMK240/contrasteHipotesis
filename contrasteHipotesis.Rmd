@@ -3,8 +3,47 @@ title: "contrasteHipotesis"
 output: html_document
 date: "2024-03-04"
 ---
-##TIPOS DE ERRORES EN EL CONTRASTE DE HIPOTESIS
+```{r setup, include= FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+##TIPOS DE ERRORES EN EL CONTRASTE DE HIPOTESIS
+Ahora veremos los tipos de errores que se pueden cometer:
+
+```{r echo=TRUE}
+# H0: 450mg | H1: no 450mg.
+#Tipo de errores que podemos cometer empleando el contraste de hipótesisis.
+
+tabla_errores_CH <- data.frame(
+                                H0_Verdadera = c("No Error","Error Tipo I") ,
+                                H0_Falsa = c("Error Tipo II","No Error"))
+```
+ Visualizo los valores el data frame en una tabla:
+ 
+```{r echo= TRUE}
+#Cambio los nombres asignados a las filas: Aceptar H0 (row1) y Rechazar H0 (row2)
+rownames(tabla_errores_CH) <- c("Aceptar H0","Rechazar H0")
+#Visualizo el data frame
+knitr::kable(tabla_errores_CH)
+```
+ -Si aceptamos la H0 existen 2 casos posibles:
+ Que sea verdadera: No error en CH
+ Que sea falsa: Error Tipo II
+ 
+ -Si aceptamos H1:
+ Que sea verdades: Error Tipo I en CH
+ Que sea falsa: No error
+ 
+ -La probabilidada de cometer el error de tipo O: nivel de significacion (letra alpha)
+ -En relacion con la probabilidad de cometer un error tipo II no tiene una denominacion concreta.
+ -Si acepto una hipotesisis y es correcta
+ 
+ 
+ ERROR I Probabilidad de rechazar la hipotesisi s inicial sbiendo que H0 esverdadera o correcta.
+ ERROR tiopo II es probabilidad de aceptar la hiotesisis inicial sabiendo que H0 es falsa p incorrecta
+ -Potencia: probabilidad de rechazar la hipotesisis inicial sabiendo que H0 es falsa o incorrecta. Esto no seria un error, seria un aciertp. Se representa con la letra p de Potencia
+ 
+ El objetivo principal es que laprobabilidad de cometer error sea lo mas pequeño posible. Lo ideal seria que error i y ii fuesen 0: no nos equivoquemos ninca. El que mas nos interesa minimizar es el error tipo I: nivel de significacion, no superando el 5% (0,05)
 
 ##OBJETIVO DEL CONTRASTE DE HIPOTESIS
 ```{r}
