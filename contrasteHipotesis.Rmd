@@ -39,14 +39,51 @@ knitr::kable(tabla_errores_CH)
  -Si acepto una hipotesisis y es correcta
  
  
- ERROR I Probabilidad de rechazar la hipotesisi s inicial sbiendo que H0 esverdadera o correcta.
+ ERROR I Probabilidad de rechazar la hipotesisi s inicial sbiendo que H0 es verdadera o correcta.
  ERROR tiopo II es probabilidad de aceptar la hiotesisis inicial sabiendo que H0 es falsa p incorrecta
- -Potencia: probabilidad de rechazar la hipotesisis inicial sabiendo que H0 es falsa o incorrecta. Esto no seria un error, seria un aciertp. Se representa con la letra p de Potencia
+ -Potencia: probabilidad de rechazar la hipotesisis inicial sabiendo que H0 es falsa o incorrecta. Esto no seria un error, seria un acierto. Se representa con la letra p de Potencia
  
- El objetivo principal es que laprobabilidad de cometer error sea lo mas pequeño posible. Lo ideal seria que error i y ii fuesen 0: no nos equivoquemos ninca. El que mas nos interesa minimizar es el error tipo I: nivel de significacion, no superando el 5% (0,05)
+ El objetivo principal es que la probabilidad de cometer error sea lo mas pequeño posible. Lo ideal seria que error i y ii fuesen 0: no nos equivoquemos ninca. El que mas nos interesa minimizar es el error tipo I: nivel de significacion, no superando el 5% (0,05).
 
-##OBJETIVO DEL CONTRASTE DE HIPOTESIS
-```{r}
+##PROCEDIMIENTO
+1.Identificar el parametro a estudiar: media, desviacion tipica, varianza, etc.
+2.Especificar la H0 y H1
+  2a.Si estudiamos un parametro (media) y afirmo que es = a un valor, se dice que el contraste es bilateral.
+    2b. Si la media es mayor o menor que un valor, decimos que el contraste es unilateral.
+3.Una vez planteadas las hipotesisis, hemos de fijar un valor para el nivel de significacion, que era el error tipo I. Cuanto mas pequeño , menor sera la probabilidad de cometer error tipo I.
+4.Obtener el valor del estadistico para la muestra elegida: obtencion de un valor relacionado con la muestra, un valor promedio en base a un muestreo aleatorio.
+5.Determinar la region de aceptacion  y rechazo: esos intervalos en los que se puedan aceptar o no las hipotesis.
+6. Decidir si rechazamos o no H0
+7.Interpretacion de los resultados
+
+##EJERCICIO 1
+```{r echo= TRUE}
+#Generamos los objetos
+
+set.seed(12)
+z <- rnorm(100)
+x <- rpois(100,10.3)
+y <- rbinom(100,1,.25)
+y1 <- 5*z+z+x*10+rnorm(100,2,1)
+y2 <- 5*z+z+x*12+rnorm(100,2,1)
+
+#Se pone a prueba para contrastar si la media no es 0
+t.test(y1)
 
 ```
+El p value en este caso es muy peuqeño, ni de coña llega a 5. De 100 valores, el test ha usado 99 valores, que ha considerado significativo y confiable para este test, descartando un valor. Esto es algo que el test hace siempre, deja un valor para un contraste final mas acertado. Al final del todo nos pone la media entre estos valores.
 
+##EJERCICIO 2: COMPRUEBA SI LAS MEDIAS DE ESTAS DOS POBLACIONES (Y1-Y2) SON IGUALES O NO CON LA FUNCION t.test
+```{r echo= TRUE}
+boxplot(y1,y2)
+
+```
+Luego testeamos para ver si las medias son o no iguales, aunque intuimos ya viendo la tabla de que posiblemente no sean iguales. Aunque vamos a aplicar el contraste de hipotesis.
+
+```{r echo= TRUE}
+t.test(y1,y2)
+```
+Por la posicion del rango intercuarticlico se intuye que la media no es igual. Realizando la prueba numerica, t, suponemos que los datos tienen una distribucion normal y no se conoce la varianza. 
+
+-Con un p-value inferior a 0.05 (nivel de significacion) rechazamos la H0 (medias iguales) acogiendonos a la H1: las medias poblacionales NO son iguales o son diferentes.
+-En relacion con los valores asociados al intervalo de confianza, pordriamos afirmar que la diferencia entre las medias de los objetos se encuentra en el siguiente intervalo (-30.06 y -10-73).
